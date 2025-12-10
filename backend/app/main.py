@@ -11,7 +11,7 @@ app = FastAPI(title="Task Manager API")
 # Get allowed origins from environment or use defaults
 allowed_origins = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:5173,http://localhost:3000,https://sunny-soni00.github.io"
+    "http://localhost:5173,http://localhost:3000,https://wolf-aman.github.io"
 ).split(",")
 
 # Add CORS middleware FIRST
