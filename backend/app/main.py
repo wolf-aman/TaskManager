@@ -9,10 +9,11 @@ from app.api.routes import auth, teams, projects, tasks, invitations, notificati
 app = FastAPI(title="Task Manager API")
 
 # Get allowed origins from environment or use defaults
-allowed_origins = os.getenv(
+allowed_origins_str = os.getenv(
     "ALLOWED_ORIGINS",
     "http://localhost:5173,http://localhost:3000,https://wolf-aman.github.io"
-).split(",")
+)
+allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",")]
 
 # Add CORS middleware FIRST
 app.add_middleware(
@@ -27,6 +28,21 @@ app.add_middleware(
 async def on_startup():
     # initialize DB (create tables)
     await init_db()
+
+@app.get("/")
+async def root():
+    """Health check endpoint"""
+    return {
+        "status": "ok",
+        "message": "Task Manager API is running",
+        "version": "1.0.0",
+        "docs": "/docs"
+    }
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for monitoring"""
+    return {"status": "healthy"}
 
 # include routers
 app.include_router(auth.router)
