@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: process.env.NODE_ENV === 'production' ? '/Taskmanager2/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/TaskManager/' : '/',
 })
